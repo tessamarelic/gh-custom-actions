@@ -5,12 +5,8 @@ inputs:
     description: 'Enable caching of dependencies'
     required: false
     default: 'true'
-    type: boolean
-    options:
-      - true
-      - false
 outputs:
-  used-cach:
+  used-cache:
     description: 'Indicates if the cache was used'
     value: ${{ steps.install }}
 runs:
@@ -28,5 +24,5 @@ runs:
       if: steps.cache.outputs.cache-hit != 'true' || inputs.caching != 'true'
       run: |
         npm ci
-        echo "::set-output name=cache::'${{ inputs.caching }}'"
+        echo "cache=${{ inputs.caching }}" >> $GITHUB_OUTPUT
       shell: bash
