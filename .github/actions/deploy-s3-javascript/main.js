@@ -13,10 +13,10 @@ function run() {
     
     // 2. Upload files to S3
     const s3Uri = `s3://${bucket}`;
-    AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
     exec.exec(`aws s3 sync ${distFolder} ${s3Uri} --region ${region}`);
 
-    core.notice('Hello from custom javascript action!');
+    const websiteUrl = `http://${bucket}.s3-website-${region}.amazonaws.com`;
+    core.setOutput('website-url', websiteUrl);
 }
 
 run();
